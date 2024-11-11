@@ -50,14 +50,9 @@ That's it! Now running `make` will show help for all documented targets.
 The included example Makefile demonstrates the features:
 
 ```makefile
-#_# foo: A top-level target
-foo:
-    echo this is foo
-
-#_# bar: A top-level target with additional help
-#_#      All of the help comments are included in the output
-bar:
-    echo this is bar
+needvars = a b c
+foo: needvar.a
+    echo "this is foo, now with $(a)"
 ```
 
 ## Public Domain
