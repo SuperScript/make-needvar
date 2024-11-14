@@ -1,3 +1,3 @@
-MAKE_TYPE != test -n "$(MAKEFILE_LIST)" && echo gnu || echo bsd
 #_# needvar.X: Check whether $(X) is nonempty
-include needvar.$(MAKE_TYPE).mk
+_NEEDVAR_TYPE != test -n '$(MAKEFILE_LIST)' && echo '$(dir $(lastword $(MAKEFILE_LIST)))needvar.gnu.mk' || echo 'needvar.bsd.mk'
+include $(_NEEDVAR_TYPE)
