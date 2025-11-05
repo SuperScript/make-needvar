@@ -1,0 +1,59 @@
+#!/bin/sh
+
+cd tests
+
+# Sanitize make output to work with both GNU and BSD make
+# Remove make error lines that differ between implementations
+sanitize() {
+  grep -v -E '^(make.*|\*\*\*|Stop\.|$)'
+}
+
+# check_yes prog
+check_yes() {
+  { "$@" 2>&1
+    if [ $? -eq 0 ]; then
+        echo "PASS: Target succeeded with defined variable"
+    else
+        echo "FAIL: Target failed unexpectedly"
+    fi
+  } | sanitize
+  echo ''
+}
+
+
+# check_no prog
+check_no() {
+  { "$@" 2>&1
+    if [ $? -eq 0 ]; then
+        echo "FAIL: Target succeeded unexpectedly"
+    else
+        echo "PASS: Target failed as expected"
+    fi
+  } | sanitize
+  echo ''
+}
+
+
+# Test 1: Success - variable a is defined
+echo "=== Test 1: Variable 'a' is defined (should succeed) ==="
+check_yes make -s foo a="hello"
+
+# Test 2: Failure - variable a is not defined
+echo "=== Test 2: Variable 'a' is not defined (should fail) ==="
+check_no make -s foo
+
+# Test 3: Success - variable b is defined
+echo "=== Test 3: Variable 'b' from needvars list (should succeed) ==="
+check_yes make -s test-b b="world"
+
+# Test 4: Failure - variable c is not defined
+echo "=== Test 4: Variable 'c' not defined (should fail) ==="
+check_no make -s test-c
+
+# Test 5: Success - multiple variables defined
+echo "=== Test 5: Multiple variables defined (should succeed) ==="
+check_yes make -s test-multi a="foo" b="bar"
+
+# Test 6: Failure - one of multiple variables not defined
+echo "=== Test 6: One of multiple variables not defined (should fail) ==="
+check_no make -s test-multi a="foo"

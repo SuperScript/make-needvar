@@ -1,11 +1,9 @@
-needvars = a b c
+.PHONY: tests
 
-include needvar.mk
-
-#_# foo: show that needvar.a works if a is nonempty
-foo: needvar.a
-	echo "this is foo, now with $(a)"
-
-#_# foo: show that needvar.d fails for BSD, succeeds for GNU if d is nonempty
-bar: needvar.d
-	echo "this is bar, now with $(d)"
+#_# tests
+#_#   Run test suite and diff with expected results
+#_#
+tests:
+	rm -f tests/output
+	tests/run > tests/output
+	diff tests/output tests/expected

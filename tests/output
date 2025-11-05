@@ -1,0 +1,24 @@
+=== Test 1: Variable 'a' is defined (should succeed) ===
+this is foo, now with hello
+PASS: Target succeeded with defined variable
+
+=== Test 2: Variable 'a' is not defined (should fail) ===
+variable not defined: a
+PASS: Target failed as expected
+
+=== Test 3: Variable 'b' from needvars list (should succeed) ===
+test-b passed with world
+PASS: Target succeeded with defined variable
+
+=== Test 4: Variable 'c' not defined (should fail) ===
+variable not defined: c
+PASS: Target failed as expected
+
+=== Test 5: Multiple variables defined (should succeed) ===
+test-multi passed with foo and bar
+PASS: Target succeeded with defined variable
+
+=== Test 6: One of multiple variables not defined (should fail) ===
+variable not defined: b
+PASS: Target failed as expected
+

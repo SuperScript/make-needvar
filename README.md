@@ -8,9 +8,9 @@ With make-needvar you can test whether a variable holds a non-empty value in the
 
 ## Usage
 
-Include `needvar.mk` at the top level in your project.
+Include `mk/needvar.mk` at the top level in your project.
 ```makefile
-include needvar.mk
+include mk/needvar.mk
 ```
 For BSD make, define the variables you want to check:
 ```makefile
@@ -33,14 +33,14 @@ That's it!
 
 ## Installation
 
-1. Copy these files to your project:
-   - needvar.mk
-   - needvar.gnu.mk
-   - needvar.bsd.mk
+1. Copy the `mk/` directory to your project, which contains:
+   - mk/needvar.mk
+   - mk/needvar.gnu.mk
+   - mk/needvar.bsd.mk
 
-2. Add this line before to your Makefile:
+2. Add this line to your Makefile:
 ```makefile
-include needvar.mk
+include mk/needvar.mk
 ```
 
 That's it! Now running `make` will show help for all documented targets.
